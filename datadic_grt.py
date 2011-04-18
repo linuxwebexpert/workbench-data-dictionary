@@ -126,8 +126,9 @@ def create_datadic(catalog):
     
     # Write the HTML file to disk
     #
-    dir_path = os.environ["HOME"] + "/{0}-datadic".format(schema.name)
-    file_path = (dir_path + "/index.html")
+    dir_path = os.environ["HOME"] + "/{0}-datadict".format(schema.name)
+    file_name = "/dd-{0}.html".format(str(date.today()))
+    file_path = (dir_path + file_name)
     
     if os.path.exists(dir_path) != True:
         os.mkdir(dir_path)
