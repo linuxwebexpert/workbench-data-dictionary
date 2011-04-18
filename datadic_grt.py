@@ -68,8 +68,11 @@ def create_datadic(catalog):
             markup += "    <td>{0}</td>\n".format(column.name)
             markup += "    <td>{0}</td>\n".format(column.formattedType)
 
-            # TODO Checks for Primary Key
-            markup += "    <td>&nbsp;</td>\n"
+            # Checks for Primary Key
+            if table.isPrimaryKeyColumn(column):
+                markup += "    <td>&#10004;</td>\n"
+            else:
+                markup += "    <td>&nbsp;</td>\n"
             
             # Checks for Not Null attribute
             if column.isNotNull == 1:
@@ -78,7 +81,10 @@ def create_datadic(catalog):
                 markup += "    <td>&nbsp;</td>\n"
             
             # TODO Checks for Unique attribute
-            markup += "    <td>&nbsp;</td>\n"
+            if False:
+                markup += "    <td>&#10004;</td>\n"
+            else:
+                markup += "    <td>&nbsp;</td>\n"
             
             # Checks for Binary, Unsigned and Zero Fill attributes
             flags = list(column.flags)
