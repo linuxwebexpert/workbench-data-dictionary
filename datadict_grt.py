@@ -21,16 +21,16 @@ from datetime import date
 from wb import *
 import grt
 
-ModuleInfo = DefineModule(name="Datadic",
+ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.2")
-@ModuleInfo.plugin("my.plugin.create_datadic",
+                          version="0.3")
+@ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
                    pluginMenu="Catalog")
 @ModuleInfo.export(grt.INT, grt.classes.db_Catalog)
 
-def create_datadic(catalog):
+def create_datadict(catalog):
     # Get table objects from the model
     #
     schema = catalog.defaultSchema
@@ -44,6 +44,7 @@ def create_datadic(catalog):
     #
     markup = get_header()
     markup = markup.replace("[PROJECTNAME]", schema.name)
+    markup = markup.replace("[DESCRIPTION]", schema.comment)
     markup = markup.replace("[EDITION]", str(date.today()))
     
     # Add alphabetic index links
@@ -190,11 +191,17 @@ def get_header():
         color: gray;\n\
         text-align: right;\n\
     }\n\
+    .proj-desc{\n\
+        width: 500px;\n\
+    }\n\
     </style>\n\
 </head>\n\
 <body>\n\
 <div id="title-sect">\n\
 <h1>[PROJECTNAME]<br> Data Dictionay</h1>\n\
+<p class="proj-desc">\n\
+<em>[DESCRIPTION]</em>\n\
+</p>\n\
 <p>\n\
 <em>[EDITION]</em>\n\
 </p>\n\
