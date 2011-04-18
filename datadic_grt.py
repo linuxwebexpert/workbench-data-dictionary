@@ -59,7 +59,7 @@ def create_datadic(catalog):
     for table in sorted_tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
-        markup += "<tr><td colspan='10'>{0}</td></tr>\n".format(table.comment)
+        markup += "<tr><td colspan='11'>{0}</td></tr>\n".format(table.comment)
         markup += get_colnames()
         sorted_columns = sorted(table.columns,
                                 key=lambda column: column.name)
@@ -109,6 +109,10 @@ def create_datadic(catalog):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td class='attr'>&nbsp;</td>\n"
+            
+            # Adds Default value
+            dv = column.defaultValue
+            markup += "    <td>{0}</td>\n".format(dv)
                 
             
             markup += "    <td>{0}</td>\n".format(column.comment)
@@ -189,7 +193,7 @@ def get_header():
 </head>\n\
 <body>\n\
 <div id="title-sect">\n\
-<h1>[PROJECTNAME] Data Dictionay</h1>\n\
+<h1>[PROJECTNAME]<br> Data Dictionay</h1>\n\
 <p>\n\
 <em>[EDITION]</em>\n\
 </p>\n\
@@ -201,8 +205,8 @@ def get_header():
 def get_colnames():
     """Returns the default column names for each table."""
     colnames = ("<tr>\n" +
-                "    <th>Attribute</th>\n" +
-                "    <th>Data Type</th>\n" +
+                "    <th>Column name</th>\n" +
+                "    <th>DataType</th>\n" +
                 "    <th><abbr title='Primary Key'>PK</abbr></th>\n" +
                 "    <th><abbr title='Not Null'>NN</abbr></th>\n" +
                 "    <th><abbr title='Unique'>UQ</abbr></th>\n" +
@@ -210,7 +214,8 @@ def get_colnames():
                 "    <th><abbr title='Unsigned'>UN</abbr></th>\n" +
                 "    <th><abbr title='Zero Fill'>ZF</abbr></th>\n" +
                 "    <th><abbr title='Auto Increment'>AI</abbr></th>\n" +
-                "    <th>Description</th>\n" +
+                "    <th>Default</th>\n" +
+                "    <th>Comment</th>\n" +
                 "</tr>\n")
     return colnames
 
