@@ -192,18 +192,18 @@ def get_header():
         text-align: right;\n\
     }\n\
     .proj-desc{\n\
-        width: 500px;\n\
+        text-align: right;\n\
     }\n\
     </style>\n\
 </head>\n\
 <body>\n\
 <div id="title-sect">\n\
 <h1>[PROJECTNAME]<br> Data Dictionay</h1>\n\
-<p class="proj-desc">\n\
-<em>[DESCRIPTION]</em>\n\
-</p>\n\
 <p>\n\
 <em>[EDITION]</em>\n\
+</p>\n\
+<p class="proj-desc">\n\
+<em>[DESCRIPTION]</em>\n\
 </p>\n\
 </div>\n\
 """
