@@ -23,7 +23,7 @@ import grt
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.3")
+                          version="0.4")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -127,7 +127,13 @@ def create_datadict(catalog):
     
     # Write the HTML file to disk
     #
-    dir_path = os.environ["HOME"] + "/{0}-datadict".format(schema.name)
+    try:
+        home_path = os.environ["HOMEPATH"]
+    except KeyError:
+        home_path = os.environ["HOME"]
+        
+        
+    dir_path = "{0}/{1}-datadict".format(home_path, schema.name)
     file_name = "/dd-{0}.html".format(str(date.today()))
     file_path = (dir_path + file_name)
     
