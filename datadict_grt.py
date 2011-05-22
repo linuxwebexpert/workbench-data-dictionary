@@ -17,13 +17,14 @@
 
 import os
 from datetime import date
+import webbrowser as browser
 
 from wb import *
 import grt
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.4")
+                          version="0.5")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -140,11 +141,23 @@ def create_datadict(catalog):
     if os.path.exists(dir_path) != True:
         os.mkdir(dir_path)
     
-    html_file = open(file_path, "w")
-    html_file.write(markup)
-    html_file.close()
+    try:
+        html_file = open(file_path, "w")
+    except IOError:
+        print("ERROR: Could not open {0}".format(file_path))
+    else:
+        html_file.write(markup)
+        print("DONE: Data Dictionary saved in {0}".format(dir_path))
+        html_file.close()
     
-    print("DONE: Data Dictionary saved in {0}".format(dir_path))
+    
+    # Open the HTML document in the Web browser
+    #
+    try:
+        browser.open_new(file_path)
+    except browser.Error:
+        print("ERROR: Could not open the Web browser")
+    
     
     return 0
 
