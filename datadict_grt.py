@@ -21,10 +21,11 @@ import webbrowser as browser
 
 from wb import *
 import grt
+import mforms as gui
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.5")
+                          version="0.6")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -135,7 +136,7 @@ def create_datadict(catalog):
         
         
     dir_path = "{0}/{1}-datadict".format(home_path, schema.name)
-    file_name = "/dd-{0}.html".format(str(date.today()))
+    file_name = "/{0}.html".format(str(date.today()))
     file_path = (dir_path + file_name)
     
     if os.path.exists(dir_path) != True:
@@ -144,19 +145,23 @@ def create_datadict(catalog):
     try:
         html_file = open(file_path, "w")
     except IOError:
-        print("ERROR: Could not open {0}".format(file_path))
+        text = "Could not open {0}.".format(file_path)
+        gui.Utilities.show_error("Error saving the file", text, "Ok",
+                                   "", "")
     else:
         html_file.write(markup)
-        print("DONE: Data Dictionary saved in {0}".format(dir_path))
         html_file.close()
-    
-    
-    # Open the HTML document in the Web browser
-    #
-    try:
-        browser.open_new(file_path)
-    except browser.Error:
-        print("ERROR: Could not open the Web browser")
+        
+        title = "{0}'s data dictionary".format(schema.name)
+        text = "The data dictionary was successfully generated."
+        gui.Utilities.show_message(title, text, "Ok", "",
+                                   "")
+        # Open the HTML document in the Web browser
+        #
+        try:
+            browser.open_new(file_path)
+        except browser.Error:
+            print("ERROR: Could not open the Web browser")
     
     
     return 0
