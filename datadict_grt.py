@@ -16,7 +16,7 @@
 
 
 import os
-from datetime import date
+import datetime
 import webbrowser as browser
 
 from wb import *
@@ -25,7 +25,7 @@ import mforms as gui
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.6")
+                          version="0.7")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -47,7 +47,7 @@ def create_datadict(catalog):
     markup = get_header()
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", schema.comment)
-    markup = markup.replace("[EDITION]", str(date.today()))
+    markup = markup.replace("[EDITION]", str(datetime.date.today()))
     
     # Add alphabetic index links
     #
@@ -71,25 +71,25 @@ def create_datadict(catalog):
             markup += "    <td>{0}</td>\n".format(column.name)
             markup += "    <td>{0}</td>\n".format(column.formattedType)
 
-            # Checks for Primary Key
+            # Check for Primary Key
             if table.isPrimaryKeyColumn(column):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
             
-            # Checks for Not Null attribute
+            # Check for Not Null attribute
             if column.isNotNull == 1:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
             
-            # TODO Checks for Unique attribute
+            # TODO Check for Unique attribute
             if False:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
             
-            # Checks for Binary, Unsigned and Zero Fill attributes
+            # Check for Binary, Unsigned and Zero Fill attributes
             flags = list(column.flags)
             
             if flags.count("BINARY"):
@@ -107,13 +107,13 @@ def create_datadict(catalog):
             else:
                 markup += "    <td>&nbsp;</td>\n"
             
-            # Checks for Auto Increment attribute
+            # Check for Auto Increment attribute
             if column.autoIncrement == 1:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td class='attr'>&nbsp;</td>\n"
             
-            # Adds Default value
+            # Add Default value
             dv = column.defaultValue
             markup += "    <td>{0}</td>\n".format(dv)
                 
@@ -129,39 +129,28 @@ def create_datadict(catalog):
     
     # Write the HTML file to disk
     #
-    try:
-        home_path = os.environ["HOMEPATH"]
-    except KeyError:
-        home_path = os.environ["HOME"]
-        
-        
-    dir_path = "{0}/{1}-datadict".format(home_path, schema.name)
-    file_name = "/{0}.html".format(str(date.today()))
-    file_path = (dir_path + file_name)
+    doc_path = os.path.dirname(grt.root.wb.docPath)
     
-    if os.path.exists(dir_path) != True:
-        os.mkdir(dir_path)
+    dialog = gui.FileChooser(gui.SaveFile)
+    dialog.set_title("Save HTML data dictionary")
+    dialog.set_directory(doc_path)
+    response = dialog.run_modal()
+    file_path = dialog.get_path()
     
-    try:
-        html_file = open(file_path, "w")
-    except IOError:
-        text = "Could not open {0}.".format(file_path)
-        gui.Utilities.show_error("Error saving the file", text, "Ok",
-                                   "", "")
-    else:
-        html_file.write(markup)
-        html_file.close()
-        
-        title = "{0}'s data dictionary".format(schema.name)
-        text = "The data dictionary was successfully generated."
-        gui.Utilities.show_message(title, text, "Ok", "",
-                                   "")
-        # Open the HTML document in the Web browser
-        #
+    if response:
         try:
-            browser.open_new(file_path)
-        except browser.Error:
-            print("ERROR: Could not open the Web browser")
+            html_file = open(file_path, "w")
+        except IOError:
+            text = "Could not open {0}.".format(file_path)
+            gui.Utilities.show_error("Error saving the file", text, "Ok",
+                                       "", "")
+        else:
+            html_file.write(markup)
+            html_file.close()
+            
+            title = "{0}'s data dictionary".format(schema.name)
+            text = "The data dictionary was successfully generated."
+            gui.Utilities.show_message(title, text, "Ok", "", "")
     
     
     return 0
