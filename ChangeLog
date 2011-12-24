@@ -1,0 +1,3 @@
+Version 0.8
+
+- Removed column sorting to respect the order given in the EER diagram.

@@ -17,7 +17,7 @@
 
 import os
 import datetime
-import webbrowser as browser
+import webbrowser
 
 from wb import *
 import grt
@@ -152,6 +152,14 @@ def create_datadict(catalog):
             title = "{0}'s data dictionary".format(schema.name)
             text = "The data dictionary was successfully generated."
             gui.Utilities.show_message(title, text, "Ok", "", "")
+            
+            # Open HTML file in the Web browser
+            #
+            try:
+                webbrowser.open_new(file_path)
+            except webbrowser.Error:
+                print("Warning: Could not open the data dictionary in " +
+                      "the Web browser.")
     
     
     return 0
