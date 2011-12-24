@@ -25,7 +25,7 @@ import mforms as gui
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.7")
+                          version="0.8")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -57,16 +57,17 @@ def create_datadict(catalog):
         markup += "<li><a href='#{0}'>{0}</a></li>\n".format(table.name)
     markup += "</ul>\n"
     
-    # Format table objects in HTML.
+    # Format table objects in HTML
     #
     for table in sorted_tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
         markup += "<tr><td colspan='11'>{0}</td></tr>\n".format(table.comment)
         markup += get_colnames()
-        sorted_columns = sorted(table.columns,
-                                key=lambda column: column.name)
-        for column in sorted_columns:
+        # TODO Make this optional
+        #sorted_columns = sorted(table.columns,
+        #                        key=lambda column: column.name)
+        for column in table.columns:
             markup += "<tr>\n"
             markup += "    <td>{0}</td>\n".format(column.name)
             markup += "    <td>{0}</td>\n".format(column.formattedType)
