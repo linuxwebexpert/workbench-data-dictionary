@@ -1,5 +1,5 @@
 # WB DataDic is a plugin for MySQL Workbench to generate data dictionaries.
-# Copyright (C) 2011  Luis Felipe Lopez Acevedo <introsmedia@gmail.com>
+# Copyright (C) 2013  Luis Felipe Lopez Acevedo <felipe.lopac@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
