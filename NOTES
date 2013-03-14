@@ -1,4 +1,7 @@
-Version 0.8
+WB Datadict Release Notes
+=========================
 
-- Removed column sorting to respect the order given in the EER diagram.
-- Added functionality to open the generated dictionary in the Web browser.
+
+Version 0.8, December 24, 2011
+    + Added functionality to open the generated dictionary in the Web browser.
+    - Removed column sorting to respect the order given in the EER diagram.
