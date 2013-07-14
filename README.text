@@ -1,30 +1,26 @@
-WB Datadict Plugin
-==================
+WB Datadict 0.8.0
+=================
 
-WB Datadict is a plugin for MySQL Workbench Community Edition 5.2.33. This
-plugin allows you to generate an HTML data dictionary from the schema
-loaded in the application.
+A plugin for MySQL Workbench Community Edition 5.2.33. This plugin allows you
+to generate an HTML data dictionary from a loaded schema. Find more information
+in [WB Datadict Documentation][1].
 
-Installation
-------------
+![Plugin location in MySQL Workbench][2]
 
-1. Download WB Datadict (using the "Downloads" tab above or the
-  "get source" link).
-2. Extract the contents wherever you want.
-3. Open MySQL Workbench.
-4. Select the option `Scripting → Install Plugin/Module`.
-5. Browse to the WB Datadict directory (extracted in step 2) and select
-   the "datadict_grt.py" file.
 
-You should see a message like this:
+Public Domain Dedication
+------------------------
 
-    Plugin Installed
-    Plugin /path/to/datadict_grt.py was installed, please restart Workbench
-    to use it.
+This work is dedicated to the public domain. You can copy, modify, distribute
+and use this work, for any purpose, all without asking permission. Do whatever
+you want with it.
 
-Lastly, press "ok" and restart MySQL Workbench.
+Truly yours,
 
-Now you should find the plugin available in
-`Plugins → Catalog → Generate HTML Data Dictionary`.
+Luis Felipe Lopez Acevedo, aka sirgazil    
+[♥ Buy New Features ($5) ♥][3]
 
-Remember you have to be on a "EER Diagram" tab to use it.
+
+[1]: https://bitbucket.org/sirgazil/wb-datadict/wiki
+[2]: http://introsmedia.files.wordpress.com/2011/04/datadict-2.png
+[3]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MXL3UKZ5EE9WL
