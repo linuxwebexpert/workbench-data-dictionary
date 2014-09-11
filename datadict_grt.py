@@ -1,4 +1,4 @@
-# WB DataDic is a plugin for MySQL Workbench to generate data dictionaries.
+# WB Datadict is a plugin for MySQL Workbench to generate data dictionaries.
 #
 # This work is dedicated to the public domain. You can copy, modify,
 # distribute and use this work, for any purpose, all without asking
