@@ -21,5 +21,5 @@ Truly yours,
 
 
 [1]: https://bitbucket.org/sirgazil/wb-datadict/wiki
-[2]: https://multimedialib.files.wordpress.com/2014/09/wb-datadict.png
+[2]: https://multimedialib.files.wordpress.com/2014/09/wb-datadict-2014-09-11.png
 [3]: http://sirgazil.bitbucket.org/
