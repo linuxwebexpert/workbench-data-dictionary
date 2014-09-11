@@ -1,13 +1,13 @@
 # WB DataDic is a plugin for MySQL Workbench to generate data dictionaries.
 #
-# This work is dedicated to the public domain. You can copy, modify, distribute
-# and use this work, for any purpose, all without asking permission. Do whatever
-# you want with it.
+# This work is dedicated to the public domain. You can copy, modify,
+# distribute and use this work, for any purpose, all without asking
+# permission. Do whatever you want with it.
 #
 # Truly yours,
 #
 # Luis Felipe Lopez Acevedo, aka sirgazil
-# <sirgazil@lavabit.com>
+# <felipe.lopez@opmbx.org>
 
 
 import os
@@ -20,7 +20,7 @@ import mforms as gui
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="0.8")
+                          version="1.0.0")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
