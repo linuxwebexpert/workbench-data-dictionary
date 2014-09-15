@@ -215,7 +215,7 @@ def get_header():
 </head>\n\
 <body>\n\
 <div id="title-sect">\n\
-<h1>[PROJECTNAME]<br> Data Dictionay</h1>\n\
+<h1>[PROJECTNAME]<br> Data Dictionary</h1>\n\
 <p>\n\
 <em>[EDITION]</em>\n\
 </p>\n\
