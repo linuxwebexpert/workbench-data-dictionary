@@ -165,9 +165,9 @@ def get_header():
     header = """<!DOCTYPE html>\n\
 <html>\n\
 <head>\n\
-    <meta charset="UTF-8" />\n\
-    <meta name="author" content="WB DataDic" />\n\
-    <meta name="description" content="[PROJECTNAME] Data Dictionary." />\n\
+    <meta charset="UTF-8">\n\
+    <meta name="author" content="WB Datadict 1.0.1">\n\
+    <meta name="description" content="[PROJECTNAME] Data Dictionary.">\n\
     <title>[PROJECTNAME] Data Dictionary</title>\n\
     <style type="text/css">\n\
     table{\n\
