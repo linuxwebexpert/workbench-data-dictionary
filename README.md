@@ -1,4 +1,4 @@
-WB Datadict 1.0.0
+WB Datadict 1.0.1
 =================
 
 A plugin for MySQL Workbench Community Edition 6.x. This plugin allows you
@@ -17,7 +17,7 @@ whatever you want with it.
 
 Truly yours,
 
-[Luis Felipe Lopez Acevedo, aka sirgazil][3]
+[Luis Felipe López Acevedo, aka sirgazil][3]
 
 
 [1]: https://bitbucket.org/sirgazil/wb-datadict/wiki

@@ -20,7 +20,7 @@ import mforms as gui
 
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="Luis Felipe Lopez Acevedo",
-                          version="1.0.0")
+                          version="1.0.1")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
