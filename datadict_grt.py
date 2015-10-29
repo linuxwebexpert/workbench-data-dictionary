@@ -9,7 +9,6 @@
 # Luis Felipe Lopez Acevedo, aka sirgazil
 # <felipe.lopez@opmbx.org>
 
-import cgi
 import os
 import datetime
 import webbrowser
@@ -42,7 +41,7 @@ def create_datadict(catalog):
     #
     markup = get_header()
     markup = markup.replace("[PROJECTNAME]", schema.name)
-    markup = markup.replace("[DESCRIPTION]", cgi.escape(schema.comment))
+    markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
     
     # Add alphabetic index links
@@ -58,7 +57,7 @@ def create_datadict(catalog):
     for table in sorted_tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
-        markup += "<tr><td colspan='11'>{0}</td></tr>\n".format(cgi.escape(table.comment))
+        markup += "<tr><td colspan='11'>{0}</td></tr>\n".format(escape(table.comment))
         markup += get_colnames()
         # TODO Make this optional
         #sorted_columns = sorted(table.columns,
@@ -115,7 +114,7 @@ def create_datadict(catalog):
             markup += "    <td>{0}</td>\n".format(dv)
                 
             
-            markup += "    <td>{0}</td>\n".format(cgi.escape(column.comment))
+            markup += "    <td>{0}</td>\n".format(escape(column.comment))
             markup += "</tr>\n"
     
         markup += "</table>\n"
@@ -159,6 +158,16 @@ def create_datadict(catalog):
     
     
     return 0
+
+
+def escape(text):
+    """Return text as an HTML-safe sequence."""
+    text = text.replace("&", "&amp;")
+    text = text.replace("<", "&lt;")
+    text = text.replace(">", "&gt;")
+    text = text.replace('"', "&quot;")
+    text = text.replace("'", "&apos;")
+    return text
 
 
 def get_header():
