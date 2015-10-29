@@ -118,7 +118,7 @@ def create_datadict(catalog):
             markup += "    <td>{0}</td>\n".format(cgi.escape(column.comment))
             markup += "</tr>\n"
     
-    markup += "</table>\n"
+        markup += "</table>\n"
     
     # Add footer to the markup
     #
