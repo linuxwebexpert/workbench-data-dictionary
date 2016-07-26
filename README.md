@@ -1,25 +1,22 @@
 WB Datadict 1.0.1
 =================
 
-A plugin for MySQL Workbench Community Edition 6.x. This plugin allows you
-to generate an HTML data dictionary from a loaded schema. Find more
-information in [WB Datadict Documentation][1].
+![Plugin location in MySQL Workbench][1]
 
-![Plugin location in MySQL Workbench][2]
+A plugin for MySQL Workbench Community Edition 6.x. This plugin allows
+you to generate an HTML data dictionary from a selected schema.
 
-
-Public Domain Dedication
-------------------------
-
-This work is dedicated to the public domain. You can copy, modify, distribute
-and use this work, for any purpose, all without asking permission. Do
-whatever you want with it.
-
-Truly yours,
-
-[Luis Felipe López Acevedo, aka sirgazil][3]
+Learn how to use it: [English][2], [Español][3].
 
 
-[1]: https://bitbucket.org/sirgazil/wb-datadict/wiki
-[2]: https://multimedialib.files.wordpress.com/2014/09/wb-datadict-2014-09-14.png
-[3]: http://sirgazil.bitbucket.org/
+Copying
+-------
+
+Public domain 2011 [sirgazil][4]. All rights waived.
+
+
+
+[1]: https://multimedialib.files.wordpress.com/2014/09/wb-datadict-2014-09-14.png
+[2]: http://sirgazil.bitbucket.org/en/blog/2011/wb-datadict-plugin/
+[3]: http://sirgazil.bitbucket.org/es/blog/2011/wb-datadict-plugin/
+[4]: http://sirgazil.bitbucket.org/
