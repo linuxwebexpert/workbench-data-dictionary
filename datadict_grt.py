@@ -1,13 +1,6 @@
-# WB Datadict is a plugin for MySQL Workbench to generate data dictionaries.
+# WB Datadict - MySQL Workbench plugin to generate data dictionaries.
 #
-# This work is dedicated to the public domain. You can copy, modify,
-# distribute and use this work, for any purpose, all without asking
-# permission. Do whatever you want with it.
-#
-# Truly yours,
-#
-# Luis Felipe Lopez Acevedo, aka sirgazil
-# <felipe.lopez@opmbx.org>
+# Public domain 2011 sirgazil. All rights waived.
 
 import os
 import datetime
@@ -19,31 +12,32 @@ import mforms as gui
 
 
 ModuleInfo = DefineModule(name="WB Datadict",
-                          author="Luis Felipe Lopez Acevedo",
-                          version="1.0.1")
+                          author="sirgazil",
+                          version="1.1.0")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
                    pluginMenu="Catalog")
 @ModuleInfo.export(grt.INT, grt.classes.db_Catalog)
 
+
 def create_datadict(catalog):
     # Get table objects from the model
     #
     schema = catalog.defaultSchema
     tables = schema.tables
-    
+
     # Organize table objects alphabeticaly
     #
     sorted_tables = sorted(tables, key=lambda table: table.name)
-    
+
     # Add header to the markup and replace header variables
     #
     markup = get_header()
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
-    
+
     # Add alphabetic index links
     #
     markup += "<h2>Alphabetic Index</h2>\n"
@@ -51,7 +45,7 @@ def create_datadict(catalog):
     for table in sorted_tables:
         markup += "<li><a href='#{0}'>{0}</a></li>\n".format(table.name)
     markup += "</ul>\n"
-    
+
     # Format table objects in HTML
     #
     for table in sorted_tables:
@@ -72,67 +66,67 @@ def create_datadict(catalog):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             # Check for Not Null attribute
             if column.isNotNull == 1:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             # TODO Check for Unique attribute
             if False:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             # Check for Binary, Unsigned and Zero Fill attributes
             flags = list(column.flags)
-            
+
             if flags.count("BINARY"):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             if flags.count("UNSIGNED"):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             if flags.count("ZEROFILL"):
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td>&nbsp;</td>\n"
-            
+
             # Check for Auto Increment attribute
             if column.autoIncrement == 1:
                 markup += "    <td>&#10004;</td>\n"
             else:
                 markup += "    <td class='attr'>&nbsp;</td>\n"
-            
+
             # Add Default value
             dv = column.defaultValue
             markup += "    <td>{0}</td>\n".format(dv)
-                
-            
+
+
             markup += "    <td>{0}</td>\n".format(escape(column.comment))
             markup += "</tr>\n"
-    
+
         markup += "</table>\n"
-    
+
     # Add footer to the markup
     #
     markup += get_footer()
-    
+
     # Write the HTML file to disk
     #
     doc_path = os.path.dirname(grt.root.wb.docPath)
-    
+
     dialog = gui.FileChooser(gui.SaveFile)
     dialog.set_title("Save HTML data dictionary")
     dialog.set_directory(doc_path)
     response = dialog.run_modal()
     file_path = dialog.get_path()
-    
+
     if response:
         try:
             html_file = open(file_path, "w")
@@ -143,11 +137,11 @@ def create_datadict(catalog):
         else:
             html_file.write(markup)
             html_file.close()
-            
+
             title = "{0}'s data dictionary".format(schema.name)
             text = "The data dictionary was successfully generated."
             gui.Utilities.show_message(title, text, "Ok", "", "")
-            
+
             # Open HTML file in the Web browser
             #
             try:
@@ -155,8 +149,8 @@ def create_datadict(catalog):
             except webbrowser.Error:
                 print("Warning: Could not open the data dictionary in " +
                       "the Web browser.")
-    
-    
+
+
     return 0
 
 
