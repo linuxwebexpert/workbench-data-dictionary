@@ -143,9 +143,8 @@ def create_datadict(catalog):
     markup = markup.replace("[INDEX]", html_index(tables))
     markup = markup.replace("[MAIN]", html_main(tables))
 
-    # Write the HTML file to disk
+    # Write the HTML file to disk (GUI Dialog)
     doc_path = os.path.dirname(grt.root.wb.docPath)
-
     dialog = gui.FileChooser(gui.SaveFile)
     dialog.set_title("Save HTML data dictionary")
     dialog.set_directory(doc_path)
@@ -153,26 +152,7 @@ def create_datadict(catalog):
     file_path = dialog.get_path()
 
     if response:
-        try:
-            html_file = open(file_path, "w")
-        except IOError:
-            text = "Could not open {0}.".format(file_path)
-            gui.Utilities.show_error("Error saving the file", text, "Ok",
-                                       "", "")
-        else:
-            html_file.write(markup)
-            html_file.close()
-
-            title = "{0}'s data dictionary".format(schema.name)
-            text = "The data dictionary was successfully generated."
-            gui.Utilities.show_message(title, text, "Ok", "", "")
-
-            # Open HTML file in the Web browser
-            try:
-                webbrowser.open_new(file_path)
-            except webbrowser.Error:
-                print("Warning: Could not open the data dictionary in " +
-                      "the Web browser.")
+        save(markup, file_path)
 
     return 0
 
@@ -308,6 +288,30 @@ def is_unique(column, table):
             break
 
     return result
+
+
+def save(html, path):
+    """Save HTML to the given file system path."""
+    try:
+        html_file = open(path, "w")
+    except IOError:
+        text = "Could not open {0}.".format(path)
+        gui.Utilities.show_error("Error saving the file", text, "Ok", "", "")
+    else:
+        html_file.write(html)
+        html_file.close()
+
+        # Display success dialog
+        text = "The data dictionary was successfully generated."
+        gui.Utilities.show_message("WB Datadict", text, "Ok", "", "")
+
+        # Open HTML file in the Web browser
+        try:
+            webbrowser.open_new(path)
+        except webbrowser.Error:
+            print("Warning: Could not launch the Web browser " +
+                  "to display the data dictionary saved in")
+            print(path)
 
 
 def table_as_html(table):
