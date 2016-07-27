@@ -37,10 +37,7 @@ def create_datadict(catalog):
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
     markup = markup.replace("[INDEX]", index(tables))
-
-    # Format table objects in HTML
-    for table in tables:
-        markup += table_as_html(table)
+    markup = markup.replace("[MAIN]", html_main(tables))
 
     # Add footer to the markup
     markup += get_footer()
@@ -250,6 +247,7 @@ def get_header():
 </p>\n\
 </header>\n\
 [INDEX]\n\
+[MAIN]\n\
 """
     return header
 
@@ -276,6 +274,18 @@ def get_colnames():
 def get_footer():
     """Return the bottom part of the HTML document."""
     return "</body>\n</html>"
+
+
+def html_main(tables):
+    """Return the main content of the HTML document."""
+    markup = "<div>"
+
+    for table in tables:
+        markup += table_as_html(table)
+
+    markup += "</div>"
+
+    return markup
 
 
 def index(tables):
