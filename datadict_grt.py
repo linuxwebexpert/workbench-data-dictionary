@@ -25,12 +25,11 @@ ModuleInfo = DefineModule(name="WB Datadict",
 
 
 def create_datadict(catalog):
-    # Get table objects from the model
+    # Get default schema
     schema = catalog.defaultSchema
-    tables = schema.tables
 
-    # Organize table objects alphabeticaly
-    sorted_tables = sorted(tables, key=lambda table: table.name)
+    # Get table objects and sort them alphabetically
+    tables = sorted(schema.tables, key=lambda table: table.name)
 
     # Add header to the markup and replace header variables
     markup = get_header()
@@ -41,12 +40,12 @@ def create_datadict(catalog):
     # Add alphabetic index links
     markup += "<h2>Alphabetic Index</h2>\n"
     markup += "<ul>\n"
-    for table in sorted_tables:
+    for table in tables:
         markup += "<li><a href='#{0}'>{0}</a></li>\n".format(table.name)
     markup += "</ul>\n"
 
     # Format table objects in HTML
-    for table in sorted_tables:
+    for table in tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
         markup += "<tr><td colspan='12'>{0}</td></tr>\n".format(escape(table.comment))
