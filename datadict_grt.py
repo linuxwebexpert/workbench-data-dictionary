@@ -46,16 +46,7 @@ def create_datadict(catalog):
 
     # Format table objects in HTML
     for table in tables:
-        markup += "<table id='{0}'>\n".format(table.name)
-        markup += "<caption>{0}</caption>\n".format(table.name)
-        markup += "<tr><td colspan='12'>{0}</td></tr>\n".format(escape(table.comment))
-        markup += get_colnames()
-
-        # Format column objects in HTML
-        for column in table.columns:
-            markup += column_as_html(column, table)
-
-        markup += "</table>\n"
+        markup += table_as_html(table)
 
     # Add footer to the markup
     markup += get_footer()
@@ -302,3 +293,19 @@ def is_unique(column, table):
             break
 
     return result
+
+
+def table_as_html(table):
+    """Return table as an HTML table."""
+    markup = "<table id='{0}'>".format(table.name)
+    markup += "<caption>{0}</caption>".format(table.name)
+    markup += "<tr><td colspan='12'>{0}</td></tr>".format(escape(table.comment))
+    markup += get_colnames()
+
+    # Format column objects in HTML
+    for column in table.columns:
+        markup += column_as_html(column, table)
+
+    markup += "</table>"
+
+    return markup
