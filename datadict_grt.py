@@ -255,25 +255,6 @@ def escape(text):
     return text
 
 
-def get_colnames():
-    """Return HTML row with header cells used in all tables."""
-    colnames = ("<tr>\n" +
-                "    <th>Column name</th>\n" +
-                "    <th>DataType</th>\n" +
-                "    <th><abbr title='Primary Key'>PK</abbr></th>\n" +
-                "    <th><abbr title='Foreign Key'>FK</abbr></th>\n" +
-                "    <th><abbr title='Not Null'>NN</abbr></th>\n" +
-                "    <th><abbr title='Unique'>UQ</abbr></th>\n" +
-                "    <th><abbr title='Binary'>BIN</abbr></th>\n" +
-                "    <th><abbr title='Unsigned'>UN</abbr></th>\n" +
-                "    <th><abbr title='Zero Fill'>ZF</abbr></th>\n" +
-                "    <th><abbr title='Auto Increment'>AI</abbr></th>\n" +
-                "    <th>Default</th>\n" +
-                "    <th>Comment</th>\n" +
-                "</tr>\n")
-    return colnames
-
-
 def html_index(tables):
     """Return index of tables as HTML nav."""
     markup = "<nav>"
@@ -298,6 +279,25 @@ def html_main(tables):
     return markup
 
 
+def html_table_header():
+    """Return the HTML row with header cells used in all tables."""
+    markup = ("<tr>" +
+              "<th>Column name</th>" +
+              "<th>DataType</th>" +
+              "<th><abbr title='Primary Key'>PK</abbr></th>" +
+              "<th><abbr title='Foreign Key'>FK</abbr></th>" +
+              "<th><abbr title='Not Null'>NN</abbr></th>" +
+              "<th><abbr title='Unique'>UQ</abbr></th>" +
+              "<th><abbr title='Binary'>BIN</abbr></th>" +
+              "<th><abbr title='Unsigned'>UN</abbr></th>" +
+              "<th><abbr title='Zero Fill'>ZF</abbr></th>" +
+              "<th><abbr title='Auto Increment'>AI</abbr></th>" +
+              "<th>Default</th>" +
+              "<th>Comment</th>" +
+              "</tr>")
+    return markup
+
+
 def is_unique(column, table):
     """Return true if the column is UNIQUE."""
     result = False
@@ -315,7 +315,7 @@ def table_as_html(table):
     markup = "<table id='{0}'>".format(table.name)
     markup += "<caption>{0}</caption>".format(table.name)
     markup += "<tr><td colspan='12'>{0}</td></tr>".format(escape(table.comment))
-    markup += get_colnames()
+    markup += html_table_header()
 
     # Format column objects in HTML
     for column in table.columns:
