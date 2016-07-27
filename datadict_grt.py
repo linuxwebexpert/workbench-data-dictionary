@@ -11,6 +11,110 @@ import grt
 import mforms as gui
 
 
+# CONSTANTS
+# =========
+
+HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="WB Datadict">
+  <meta name="description" content="[PROJECTNAME] Data Dictionary.">
+  <title>[PROJECTNAME] Data Dictionary</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    // Highlight table corresponding to the current fragment in the URL.
+    $(document).ready(function(){
+      $("a").click(function() {
+        var elem = $(this);
+        // Remove all classes from tables.
+        $("table").removeClass( "focused" )
+        // Get a.href value and extract its fragment id.
+        var id = elem.attr("href");
+        // Highlight table using fragment id.
+        $(id).addClass( "focused" );
+      });
+    });
+  </script>
+  <style type="text/css">
+    a {
+        text-decoration: none;
+    }
+    abbr {
+        cursor: help;
+    }
+    header {
+        color: #6A6A6A;
+        text-align: right;
+    }
+    table {
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+    table caption {
+        font-size: 120%;
+        font-weight: bold;
+    }
+    table, td, th {
+        border-color: silver;
+        border-style: solid;
+        border-width: 1px;
+    }
+    caption {
+        color: black;
+    }
+    td, th {
+        padding: 1em;
+    }
+    tr:hover {
+        color: #333;
+        background-color: #F2F2F2;
+    }
+    th {
+        background-color: #F5F5F5;
+    }
+    td {
+        color: #6A6A6A;
+    }
+    ul {
+        font-style: italic;
+    }
+    .centered {
+        text-align: center;
+    }
+    .field {
+        color: #4C4C4C;
+        font-weight: bold;
+    }
+    .focused {
+        outline-color: aqua;
+        outline-style: solid;
+        outline-width: thin;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>[PROJECTNAME]<br> Data Dictionary</h1>
+    <p>
+      <em>[EDITION]</em>
+    </p>
+    <p>
+      <em>[DESCRIPTION]</em>
+    </p>
+  </header>
+
+  [INDEX]
+
+  [MAIN]
+</body>
+</html>
+"""
+
+
+
 # PLUGIN
 # ======
 
@@ -31,16 +135,13 @@ def create_datadict(catalog):
     # Get table objects and sort them alphabetically
     tables = sorted(schema.tables, key=lambda table: table.name)
 
-    # Add header to the markup and replace header variables
-    markup = get_header()
+    # Fill HTML template
+    markup = HTML_TEMPLATE
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
     markup = markup.replace("[INDEX]", index(tables))
     markup = markup.replace("[MAIN]", html_main(tables))
-
-    # Add footer to the markup
-    markup += get_footer()
 
     # Write the HTML file to disk
     doc_path = os.path.dirname(grt.root.wb.docPath)
@@ -154,104 +255,6 @@ def escape(text):
     return text
 
 
-def get_header():
-    """Return the top part of the HTML document."""
-    header = """<!DOCTYPE html>\n\
-<html lang="en">\n\
-<head>\n\
-    <meta charset="UTF-8">\n\
-    <meta name="author" content="WB Datadict">\n\
-    <meta name="description" content="[PROJECTNAME] Data Dictionary.">\n\
-    <title>[PROJECTNAME] Data Dictionary</title>\n\
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>\n\
-    <script>
-      // Highlight table corresponding to the current fragment in the URL.
-      $(document).ready(function(){
-        $("a").click(function() {
-          var elem = $(this);
-          // Remove all classes from tables.
-          $("table").removeClass( "focused" )
-          // Get a.href value and extract its fragment id.
-          var id = elem.attr("href");
-          // Highlight table using fragment id.
-          $(id).addClass( "focused" );
-        });
-      });
-    </script>
-    <style type="text/css">\n\
-    a{\n\
-        text-decoration: none;\n\
-    }\n\
-    abbr{\n\
-        cursor: help;\n\
-    }\n\
-    header{\n\
-        color: #6A6A6A;\n\
-        text-align: right;\n\
-    }\n\
-    table{\n\
-        border-collapse: collapse;\n\
-        margin-bottom: 30px;\n\
-        width: 100%;\n\
-    }\n\
-    table caption{\n\
-        font-size: 120%;\n\
-        font-weight: bold;\n\
-    }\n\
-    table, td, th{\n\
-        border-color: silver;\n\
-        border-style: solid;\n\
-        border-width: 1px;\n\
-    }\n\
-    caption{\n\
-        color: black;\n\
-    }\n\
-    td, th{\n\
-        padding: 1em;\n\
-    }\n\
-    tr:hover{\n\
-        color: #333;\n\
-        background-color: #F2F2F2;\n\
-    }\n\
-    th{\n\
-        background-color: #F5F5F5;\n\
-    }\n\
-    td{\n\
-        color: #6A6A6A;\n\
-    }\n\
-    ul{\n\
-        font-style: italic;\n\
-    }\n\
-    .centered{\n\
-        text-align: center;\n\
-    }\n\
-    .field{\n\
-        color: #4C4C4C;\n\
-        font-weight: bold;\n\
-    }\n\
-    .focused{\n\
-        outline-color: aqua;\n\
-        outline-style: solid;\n\
-        outline-width: thin;\n\
-    }\n\
-    </style>\n\
-</head>\n\
-<body>\n\
-<header>\n\
-<h1>[PROJECTNAME]<br> Data Dictionary</h1>\n\
-<p>\n\
-<em>[EDITION]</em>\n\
-</p>\n\
-<p>\n\
-<em>[DESCRIPTION]</em>\n\
-</p>\n\
-</header>\n\
-[INDEX]\n\
-[MAIN]\n\
-"""
-    return header
-
-
 def get_colnames():
     """Return HTML row with header cells used in all tables."""
     colnames = ("<tr>\n" +
@@ -269,11 +272,6 @@ def get_colnames():
                 "    <th>Comment</th>\n" +
                 "</tr>\n")
     return colnames
-
-
-def get_footer():
-    """Return the bottom part of the HTML document."""
-    return "</body>\n</html>"
 
 
 def html_main(tables):
