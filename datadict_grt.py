@@ -179,6 +179,9 @@ def get_header():
     <meta name="description" content="[PROJECTNAME] Data Dictionary.">\n\
     <title>[PROJECTNAME] Data Dictionary</title>\n\
     <style type="text/css">\n\
+    a{\n\
+        text-decoration: none;\n\
+    }\n\
     abbr{\n\
         cursor: help;\n\
     }\n\
