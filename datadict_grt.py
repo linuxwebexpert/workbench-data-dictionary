@@ -53,65 +53,7 @@ def create_datadict(catalog):
 
         # Format column objects in HTML
         for column in table.columns:
-            markup += "<tr>\n"
-            markup += "    <td class='field'>{0}</td>\n".format(column.name)
-            markup += "    <td>{0}</td>\n".format(column.formattedType)
-
-            # Check for Primary Key
-            if table.isPrimaryKeyColumn(column):
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Check for Foreign Key
-            if table.isForeignKeyColumn(column):
-                markup += "    <td class='centered'><a href='#{0}'>&#10004;</a></td>\n".format(column.name.replace("_id", ""))
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Check for Not Null attribute
-            if column.isNotNull == 1:
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Check for Unique attribute
-            if is_unique(column, table):
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Check for Binary, Unsigned and Zero Fill attributes
-            flags = list(column.flags)
-
-            if flags.count("BINARY"):
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            if flags.count("UNSIGNED"):
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            if flags.count("ZEROFILL"):
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Check for Auto Increment attribute
-            if column.autoIncrement == 1:
-                markup += "    <td class='centered'>&#10004;</td>\n"
-            else:
-                markup += "    <td class='centered'>&nbsp;</td>\n"
-
-            # Add Default value
-            dv = column.defaultValue
-            markup += "    <td>{0}</td>\n".format(dv)
-
-
-            markup += "    <td>{0}</td>\n".format(escape(column.comment))
-            markup += "</tr>\n"
+            markup += column_as_html(column, table)
 
         markup += "</table>\n"
 
@@ -155,6 +97,70 @@ def create_datadict(catalog):
 
 # HELPER FUNCTIONS
 # ================
+
+def column_as_html(column, table):
+    """Return column as an HTML row."""
+    markup = "<tr>"
+    markup += "<td class='field'>{0}</td>".format(column.name)
+    markup += "<td>{0}</td>".format(column.formattedType)
+
+    # Check for Primary Key
+    if table.isPrimaryKeyColumn(column):
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Check for Foreign Key
+    if table.isForeignKeyColumn(column):
+        markup += "<td class='centered'><a href='#{0}'>&#10004;</a></td>".format(column.name.replace("_id", ""))
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Check for Not Null attribute
+    if column.isNotNull == 1:
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Check for Unique attribute
+    if is_unique(column, table):
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Check for Binary, Unsigned and Zero Fill attributes
+    flags = list(column.flags)
+
+    if flags.count("BINARY"):
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    if flags.count("UNSIGNED"):
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    if flags.count("ZEROFILL"):
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Check for Auto Increment attribute
+    if column.autoIncrement == 1:
+        markup += "<td class='centered'>&#10004;</td>"
+    else:
+        markup += "<td class='centered'>&nbsp;</td>"
+
+    # Default value
+    markup += "<td>{0}</td>".format(column.defaultValue)
+
+    # Comment
+    markup += "<td>{0}</td>".format(escape(column.comment))
+    markup += "</tr>"
+
+    return markup
+
 
 def escape(text):
     """Return text as an HTML-safe sequence."""
