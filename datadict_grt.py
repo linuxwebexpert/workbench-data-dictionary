@@ -51,7 +51,7 @@ def create_datadict(catalog):
     for table in sorted_tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
-        markup += "<tr><td colspan='11'>{0}</td></tr>\n".format(escape(table.comment))
+        markup += "<tr><td colspan='12'>{0}</td></tr>\n".format(escape(table.comment))
         markup += get_colnames()
         # TODO Make this optional
         #sorted_columns = sorted(table.columns,
@@ -64,6 +64,12 @@ def create_datadict(catalog):
             # Check for Primary Key
             if table.isPrimaryKeyColumn(column):
                 markup += "    <td>&#10004;</td>\n"
+            else:
+                markup += "    <td>&nbsp;</td>\n"
+
+            # Check for Foreign Key
+            if table.isForeignKeyColumn(column):
+                markup += "    <td><a href='#{0}'>&#10004;</a></td>\n".format(column.name.replace("_id", ""))
             else:
                 markup += "    <td>&nbsp;</td>\n"
 
@@ -237,6 +243,7 @@ def get_colnames():
                 "    <th>Column name</th>\n" +
                 "    <th>DataType</th>\n" +
                 "    <th><abbr title='Primary Key'>PK</abbr></th>\n" +
+                "    <th><abbr title='Foreign Key'>FK</abbr></th>\n" +
                 "    <th><abbr title='Not Null'>NN</abbr></th>\n" +
                 "    <th><abbr title='Unique'>UQ</abbr></th>\n" +
                 "    <th><abbr title='Binary'>BIN</abbr></th>\n" +
