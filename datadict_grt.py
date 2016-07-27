@@ -53,9 +53,8 @@ def create_datadict(catalog):
         markup += "<caption>{0}</caption>\n".format(table.name)
         markup += "<tr><td colspan='12'>{0}</td></tr>\n".format(escape(table.comment))
         markup += get_colnames()
-        # TODO Make this optional
-        #sorted_columns = sorted(table.columns,
-        #                        key=lambda column: column.name)
+
+        # Format column objects in HTML
         for column in table.columns:
             markup += "<tr>\n"
             markup += "    <td>{0}</td>\n".format(column.name)
