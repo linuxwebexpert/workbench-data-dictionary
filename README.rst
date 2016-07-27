@@ -4,10 +4,8 @@ WB Datadict 1.1.0
 
 
 .. figure:: https://multimedialib.files.wordpress.com/2014/09/wb-datadict-2014-09-14.png
-   :alt: Figure 1
+   :alt: Figure 1. Plugin location in MySQL Workbench.
    :align: center
-
-   Figure 1. Plugin location in MySQL Workbench.
 
 A plugin for MySQL Workbench Community Edition 6.x. This plugin allows
 you to generate an HTML data dictionary from a selected schema.
