@@ -57,7 +57,7 @@ def create_datadict(catalog):
         # Format column objects in HTML
         for column in table.columns:
             markup += "<tr>\n"
-            markup += "    <td>{0}</td>\n".format(column.name)
+            markup += "    <td class='field'>{0}</td>\n".format(column.name)
             markup += "    <td>{0}</td>\n".format(column.formattedType)
 
             # Check for Primary Key
@@ -224,6 +224,10 @@ def get_header():
     }\n\
     .centered{\n\
         text-align: center;\n\
+    }\n\
+    .field{\n\
+        color: #4C4C4C;\n\
+        font-weight: bold;\n\
     }\n\
     </style>\n\
 </head>\n\

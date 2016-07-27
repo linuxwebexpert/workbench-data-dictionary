@@ -9,6 +9,7 @@ Version 1.1.0, Month DD, YYYY
         * Added language attribute to HTML element.
 	* Collapsed borders of tables.
 	* Increased color contrast to conform to WCAG AA.
+	* Made database column names stand out.
         * Centered column check marks.
 	* Removed text decoration in links.
 
