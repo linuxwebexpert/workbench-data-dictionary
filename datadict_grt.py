@@ -62,51 +62,51 @@ def create_datadict(catalog):
 
             # Check for Primary Key
             if table.isPrimaryKeyColumn(column):
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # Check for Foreign Key
             if table.isForeignKeyColumn(column):
-                markup += "    <td><a href='#{0}'>&#10004;</a></td>\n".format(column.name.replace("_id", ""))
+                markup += "    <td class='centered'><a href='#{0}'>&#10004;</a></td>\n".format(column.name.replace("_id", ""))
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # Check for Not Null attribute
             if column.isNotNull == 1:
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # TODO Check for Unique attribute
             if False:
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # Check for Binary, Unsigned and Zero Fill attributes
             flags = list(column.flags)
 
             if flags.count("BINARY"):
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             if flags.count("UNSIGNED"):
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             if flags.count("ZEROFILL"):
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # Check for Auto Increment attribute
             if column.autoIncrement == 1:
-                markup += "    <td>&#10004;</td>\n"
+                markup += "    <td class='centered'>&#10004;</td>\n"
             else:
-                markup += "    <td class='attr'>&nbsp;</td>\n"
+                markup += "    <td class='centered'>&nbsp;</td>\n"
 
             # Add Default value
             dv = column.defaultValue
@@ -216,6 +216,9 @@ def get_header():
     #title-sect{\n\
         color: gray;\n\
         text-align: right;\n\
+    }\n\
+    .centered{\n\
+        text-align: center;\n\
     }\n\
     .proj-desc{\n\
         text-align: right;\n\
