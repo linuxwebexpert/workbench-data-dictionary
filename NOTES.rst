@@ -8,6 +8,7 @@ Version 1.1.0, Month DD, YYYY
     * Enhanced HTML structure and CSS style:
         * Added language attribute to HTML element.
 	* Collapsed borders of tables.
+	* Increased color contrast to conform to WCAG AA.
         * Centered column check marks.
 	* Removed text decoration in links.
 

@@ -185,6 +185,10 @@ def get_header():
     abbr{\n\
         cursor: help;\n\
     }\n\
+    header{\n\
+        color: #6A6A6A;\n\
+        text-align: right;\n\
+    }\n\
     table{\n\
         border-collapse: collapse;\n\
         margin-bottom: 30px;\n\
@@ -213,33 +217,26 @@ def get_header():
         background-color: #F5F5F5;\n\
     }\n\
     td{\n\
-        color: gray;\n\
+        color: #6A6A6A;\n\
     }\n\
     ul{\n\
         font-style: italic;\n\
     }\n\
-    #title-sect{\n\
-        color: gray;\n\
-        text-align: right;\n\
-    }\n\
     .centered{\n\
         text-align: center;\n\
-    }\n\
-    .proj-desc{\n\
-        text-align: right;\n\
     }\n\
     </style>\n\
 </head>\n\
 <body>\n\
-<div id="title-sect">\n\
+<header>\n\
 <h1>[PROJECTNAME]<br> Data Dictionary</h1>\n\
 <p>\n\
 <em>[EDITION]</em>\n\
 </p>\n\
-<p class="proj-desc">\n\
+<p>\n\
 <em>[DESCRIPTION]</em>\n\
 </p>\n\
-</div>\n\
+</header>\n\
 """
     return header
 
