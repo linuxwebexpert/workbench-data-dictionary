@@ -179,33 +179,35 @@ def get_header():
     <meta name="description" content="[PROJECTNAME] Data Dictionary.">\n\
     <title>[PROJECTNAME] Data Dictionary</title>\n\
     <style type="text/css">\n\
-    table{\n\
-        width: 100%;\n\
-        margin-bottom: 30px;\n\
-    }\n\
     abbr{\n\
         cursor: help;\n\
     }\n\
-    table, td, th{\n\
-        border-style: solid;\n\
-        border-width: 1px;\n\
+    table{\n\
+        border-collapse: collapse;\n\
+        margin-bottom: 30px;\n\
+        width: 100%;\n\
     }\n\
     table caption{\n\
         font-size: 120%;\n\
         font-weight: bold;\n\
     }\n\
+    table, td, th{\n\
+        border-color: silver;\n\
+        border-style: solid;\n\
+        border-width: 1px;\n\
+    }\n\
     caption{\n\
         color: black;\n\
     }\n\
     td, th{\n\
-        border-color: silver;\n\
+        padding: 1em;\n\
     }\n\
     tr:hover{\n\
         color: #333;\n\
         background-color: #F2F2F2;\n\
     }\n\
     th{\n\
-        background-color: silver;\n\
+        background-color: #F5F5F5;\n\
     }\n\
     td{\n\
         color: gray;\n\

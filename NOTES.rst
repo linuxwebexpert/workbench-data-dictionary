@@ -6,6 +6,7 @@ Version 1.1.0, Month DD, YYYY
     * Added Foreign Key column, which links to the related table.
     * Enhanced HTML structure and CSS style:
         * Added language attribute to HTML element.
+	* Collapsed borders of tables.
         * Centered column check marks.
 
 Version 1.0.1, October 30, 2015
