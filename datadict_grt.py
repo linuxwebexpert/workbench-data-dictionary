@@ -11,6 +11,9 @@ import grt
 import mforms as gui
 
 
+# PLUGIN
+# ======
+
 ModuleInfo = DefineModule(name="WB Datadict",
                           author="sirgazil",
                           version="1.1.0")
@@ -23,23 +26,19 @@ ModuleInfo = DefineModule(name="WB Datadict",
 
 def create_datadict(catalog):
     # Get table objects from the model
-    #
     schema = catalog.defaultSchema
     tables = schema.tables
 
     # Organize table objects alphabeticaly
-    #
     sorted_tables = sorted(tables, key=lambda table: table.name)
 
     # Add header to the markup and replace header variables
-    #
     markup = get_header()
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
 
     # Add alphabetic index links
-    #
     markup += "<h2>Alphabetic Index</h2>\n"
     markup += "<ul>\n"
     for table in sorted_tables:
@@ -47,7 +46,6 @@ def create_datadict(catalog):
     markup += "</ul>\n"
 
     # Format table objects in HTML
-    #
     for table in sorted_tables:
         markup += "<table id='{0}'>\n".format(table.name)
         markup += "<caption>{0}</caption>\n".format(table.name)
@@ -119,11 +117,9 @@ def create_datadict(catalog):
         markup += "</table>\n"
 
     # Add footer to the markup
-    #
     markup += get_footer()
 
     # Write the HTML file to disk
-    #
     doc_path = os.path.dirname(grt.root.wb.docPath)
 
     dialog = gui.FileChooser(gui.SaveFile)
@@ -148,16 +144,18 @@ def create_datadict(catalog):
             gui.Utilities.show_message(title, text, "Ok", "", "")
 
             # Open HTML file in the Web browser
-            #
             try:
                 webbrowser.open_new(file_path)
             except webbrowser.Error:
                 print("Warning: Could not open the data dictionary in " +
                       "the Web browser.")
 
-
     return 0
 
+
+
+# HELPER FUNCTIONS
+# ================
 
 def escape(text):
     """Return text as an HTML-safe sequence."""
@@ -170,7 +168,7 @@ def escape(text):
 
 
 def get_header():
-    """Returns the top part of the HTML document."""
+    """Return the top part of the HTML document."""
     header = """<!DOCTYPE html>\n\
 <html lang="en">\n\
 <head>\n\
@@ -266,7 +264,7 @@ def get_header():
 
 
 def get_colnames():
-    """Returns the default column names for each table."""
+    """Return HTML row with header cells used in all tables."""
     colnames = ("<tr>\n" +
                 "    <th>Column name</th>\n" +
                 "    <th>DataType</th>\n" +
@@ -285,7 +283,7 @@ def get_colnames():
 
 
 def get_footer():
-    """Returns the bottom part of the HTML document."""
+    """Return the bottom part of the HTML document."""
     return "</body>\n</html>"
 
 
