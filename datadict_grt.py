@@ -140,7 +140,7 @@ def create_datadict(catalog):
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
-    markup = markup.replace("[INDEX]", index(tables))
+    markup = markup.replace("[INDEX]", html_index(tables))
     markup = markup.replace("[MAIN]", html_main(tables))
 
     # Write the HTML file to disk
@@ -274,6 +274,18 @@ def get_colnames():
     return colnames
 
 
+def html_index(tables):
+    """Return index of tables as HTML nav."""
+    markup = "<nav>"
+    markup += "<h2>Index</h2>"
+    markup += "<ul>"
+    for table in tables:
+        markup += "<li><a href='#{0}'>{0}</a></li>".format(table.name)
+    markup += "</ul></nav>"
+
+    return markup
+
+
 def html_main(tables):
     """Return the main content of the HTML document."""
     markup = "<div>"
@@ -282,18 +294,6 @@ def html_main(tables):
         markup += table_as_html(table)
 
     markup += "</div>"
-
-    return markup
-
-
-def index(tables):
-    """Return index of tables as HTML nav."""
-    markup = "<nav>"
-    markup += "<h2>Index</h2>"
-    markup += "<ul>"
-    for table in tables:
-        markup += "<li><a href='#{0}'>{0}</a></li>".format(table.name)
-    markup += "</ul></nav>"
 
     return markup
 
