@@ -5,13 +5,8 @@ WB Datadict Release Notes
 Version 1.1.0, Month DD, YYYY
     * Added Foreign Key column, which links to the related table.
     * Fixed Unique constraint indicator.
-    * Enhanced HTML structure and CSS style:
-        * Added language attribute to HTML element.
-	* Collapsed borders of tables.
-	* Increased color contrast to conform to WCAG AA.
-	* Made database column names stand out.
-        * Centered column check marks.
-	* Removed text decoration in links.
+    * Enhanced HTML structure and CSS style.
+    * Added table highlighting when clicking on links.
 
 Version 1.0.1, October 30, 2015
     * Fixed HTML5 validation errors.

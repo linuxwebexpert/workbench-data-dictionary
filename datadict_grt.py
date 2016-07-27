@@ -175,9 +175,24 @@ def get_header():
 <html lang="en">\n\
 <head>\n\
     <meta charset="UTF-8">\n\
-    <meta name="author" content="WB Datadict 1.0.1">\n\
+    <meta name="author" content="WB Datadict">\n\
     <meta name="description" content="[PROJECTNAME] Data Dictionary.">\n\
     <title>[PROJECTNAME] Data Dictionary</title>\n\
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>\n\
+    <script>
+      // Highlight table corresponding to the current fragment in the URL.
+      $(document).ready(function(){
+        $("a").click(function() {
+          var elem = $(this);
+          // Remove all classes from tables.
+          $("table").removeClass( "focused" )
+          // Get a.href value and extract its fragment id.
+          var id = elem.attr("href");
+          // Highlight table using fragment id.
+          $(id).addClass( "focused" );
+        });
+      });
+    </script>
     <style type="text/css">\n\
     a{\n\
         text-decoration: none;\n\
@@ -228,6 +243,11 @@ def get_header():
     .field{\n\
         color: #4C4C4C;\n\
         font-weight: bold;\n\
+    }\n\
+    .focused{\n\
+        outline-color: aqua;\n\
+        outline-style: solid;\n\
+        outline-width: thin;\n\
     }\n\
     </style>\n\
 </head>\n\
