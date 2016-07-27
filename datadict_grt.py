@@ -36,13 +36,7 @@ def create_datadict(catalog):
     markup = markup.replace("[PROJECTNAME]", schema.name)
     markup = markup.replace("[DESCRIPTION]", escape(schema.comment))
     markup = markup.replace("[EDITION]", str(datetime.date.today()))
-
-    # Add alphabetic index links
-    markup += "<h2>Alphabetic Index</h2>\n"
-    markup += "<ul>\n"
-    for table in tables:
-        markup += "<li><a href='#{0}'>{0}</a></li>\n".format(table.name)
-    markup += "</ul>\n"
+    markup = markup.replace("[INDEX]", index(tables))
 
     # Format table objects in HTML
     for table in tables:
@@ -255,6 +249,7 @@ def get_header():
 <em>[DESCRIPTION]</em>\n\
 </p>\n\
 </header>\n\
+[INDEX]\n\
 """
     return header
 
@@ -281,6 +276,18 @@ def get_colnames():
 def get_footer():
     """Return the bottom part of the HTML document."""
     return "</body>\n</html>"
+
+
+def index(tables):
+    """Return index of tables as HTML nav."""
+    markup = "<nav>"
+    markup += "<h2>Index</h2>"
+    markup += "<ul>"
+    for table in tables:
+        markup += "<li><a href='#{0}'>{0}</a></li>".format(table.name)
+    markup += "</ul></nav>"
+
+    return markup
 
 
 def is_unique(column, table):
