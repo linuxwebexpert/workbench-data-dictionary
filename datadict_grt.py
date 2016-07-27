@@ -78,8 +78,8 @@ def create_datadict(catalog):
             else:
                 markup += "    <td class='centered'>&nbsp;</td>\n"
 
-            # TODO Check for Unique attribute
-            if False:
+            # Check for Unique attribute
+            if is_unique(column, table):
                 markup += "    <td class='centered'>&#10004;</td>\n"
             else:
                 markup += "    <td class='centered'>&nbsp;</td>\n"
@@ -266,3 +266,15 @@ def get_colnames():
 def get_footer():
     """Returns the bottom part of the HTML document."""
     return "</body>\n</html>"
+
+
+def is_unique(column, table):
+    """Return true if the column is UNIQUE."""
+    result = False
+
+    for index in table.indices:
+        if index.name == "{0}_UNIQUE".format(column.name):
+            result = True
+            break
+
+    return result

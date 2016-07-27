@@ -4,6 +4,7 @@ WB Datadict Release Notes
 
 Version 1.1.0, Month DD, YYYY
     * Added Foreign Key column, which links to the related table.
+    * Fixed Unique constraint indicator.
     * Enhanced HTML structure and CSS style:
         * Added language attribute to HTML element.
 	* Collapsed borders of tables.
