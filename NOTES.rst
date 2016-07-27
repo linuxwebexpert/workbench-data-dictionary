@@ -4,6 +4,7 @@ WB Datadict Release Notes
 
 Version 1.1.0, Month DD, YYYY
     * Added Foreign Key column, which links to the related table.
+    * Added language attribute to exported HTML document.
 
 Version 1.0.1, October 30, 2015
     * Fixed HTML5 validation errors.

@@ -173,7 +173,7 @@ def escape(text):
 def get_header():
     """Returns the top part of the HTML document."""
     header = """<!DOCTYPE html>\n\
-<html>\n\
+<html lang="en">\n\
 <head>\n\
     <meta charset="UTF-8">\n\
     <meta name="author" content="WB Datadict 1.0.1">\n\
