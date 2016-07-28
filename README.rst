@@ -26,6 +26,6 @@ Public domain 2011 `sirgazil`_. All rights waived.
 
 
 .. REFERENCES
-.. _English: http://sirgazil.bitbucket.org/en/blog/2011/wb-datadict-plugin/
-.. _Español: http://sirgazil.bitbucket.org/es/blog/2011/wb-datadict-plugin/
+.. _English: http://sirgazil.bitbucket.org/en/doc/wb-datadict/1.1.0/manual/
+.. _Español: http://sirgazil.bitbucket.org/es/doc/wb-datadict/1.1.0/manual/
 .. _sirgazil: http://sirgazil.bitbucket.org/
