@@ -4,7 +4,7 @@
 
 import os
 import datetime
-import webbrowser
+# import webbrowser
 
 from wb import *
 import grt
@@ -92,6 +92,38 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         outline-style: solid;
         outline-width: thin;
     }
+    .foreign :hover {
+        background-color: aqua;
+    }
+    .comment {
+        font-style: italic;
+    }
+    #toc {
+        display: inline-block;
+        clear: none;
+        max-width: calc(100vw/5);
+        }
+    #legend {
+        max-width: calc(100vw/5);
+        }
+    #legend img {
+        max-width: calc(100vw/4);
+        padding: 5px;
+        }
+    #schema {
+        display: inline-block;
+        clear: none;
+        }
+    #schema img {
+        # max-width: calc(100vw - 270px);
+        max-width: calc(100vw/12*9);
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px;
+        }
+    #main {
+        width: 100%;
+        }
   </style>
 </head>
 
@@ -105,8 +137,30 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       <em>[DESCRIPTION]</em>
     </p>
   </header>
-
-  [INDEX]
+    
+    <div id="#main">
+    
+        <table border="0">
+        <tr>
+        <td >
+            [INDEX]
+        </td>
+        <td rowspan="2">
+            <div id="schema">
+                <img src="schema_erd.png" />
+            </div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <div id="legend">
+                <img src="legend.png" />
+            </div>
+        </td>
+        </tr>
+        </table>
+            
+    </div>
 
   [MAIN]
 </body>
@@ -119,8 +173,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 # ======
 
 ModuleInfo = DefineModule(name="WB Datadict",
-                          author="sirgazil",
-                          version="1.1.0")
+                          author="sirgazil + linuxwebexpert",
+                          version="1.1.1")
 @ModuleInfo.plugin("my.plugin.create_datadict",
                    caption="Generate HTML Data Dictionary",
                    input=[wbinputs.currentCatalog()],
@@ -164,30 +218,30 @@ def create_datadict(catalog):
 def column_as_html(column, table):
     """Return column as an HTML row."""
     markup = "<tr>"
-    markup += "<td class='field'>{0}</td>".format(column.name)
+    markup += "<td class='field'>{0}</td>".format(column.name, column.comment)
     markup += "<td>{0}</td>".format(column.formattedType)
 
     # Check for Primary Key
     if table.isPrimaryKeyColumn(column):
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered primary'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     # Check for Foreign Key
     if table.isForeignKeyColumn(column):
-        markup += "<td class='centered'><a href='#{0}'>&#10004;</a></td>".format(column.name.replace("_id", ""))
+        markup += "<td class='centered foreign'><a href='#{0}s'>&#10004;</a></td>".format(column.name.replace(table.name, ""))
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     # Check for Not Null attribute
     if column.isNotNull == 1:
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered notnull'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     # Check for Unique attribute
     if is_unique(column, table):
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered unique'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
@@ -195,23 +249,23 @@ def column_as_html(column, table):
     flags = list(column.flags)
 
     if flags.count("BINARY"):
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered binary'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     if flags.count("UNSIGNED"):
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered unsigned'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     if flags.count("ZEROFILL"):
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered zerofill'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
     # Check for Auto Increment attribute
     if column.autoIncrement == 1:
-        markup += "<td class='centered'>&#10004;</td>"
+        markup += "<td class='centered autoincrement'>&#10004;</td>"
     else:
         markup += "<td class='centered'>&nbsp;</td>"
 
@@ -219,7 +273,7 @@ def column_as_html(column, table):
     markup += "<td>{0}</td>".format(column.defaultValue)
 
     # Comment
-    markup += "<td>{0}</td>".format(escape(column.comment))
+    markup += "<td class='comment'>{0}</td>".format(escape(column.comment))
     markup += "</tr>"
 
     return markup
@@ -303,15 +357,15 @@ def save(html, path):
 
         # Display success dialog
         text = "The data dictionary was successfully generated."
-        gui.Utilities.show_message("WB Datadict", text, "Ok", "", "")
+        gui.Utilities.show_message("Workbench Data Dictionary", text, "Ok", "", "")
 
         # Open HTML file in the Web browser
-        try:
-            webbrowser.open_new(path)
-        except webbrowser.Error:
-            print("Warning: Could not launch the Web browser " +
-                  "to display the data dictionary saved in")
-            print(path)
+        # try:
+        #     webbrowser.open_new(path)
+        # except webbrowser.Error:
+        #     print("Warning: Could not launch the Web browser " +
+        #           "to display the data dictionary saved in")
+        #     print(path)
 
 
 def table_as_html(table):
