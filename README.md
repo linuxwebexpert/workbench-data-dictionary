@@ -15,6 +15,18 @@ you to generate an HTML data dictionary from a selected schema.
 8. Copy the `legend.png` image to output folder
 9. Open the file with your web browser and enjoy ;)
 
+### Contribute
+
+Most information about using Workbench Python scripting API is
+available in the Scripting and Plugin Development documentation:
+
+http://mysqlworkbench.org/learn/learn/
+
+The documentation on GRT Globals Tree and its classes is particularly
+useful:
+
+http://mysqlworkbench.org/workbench/doc/globals/index.html
+
 #### Many thanks to the original author and contributors to this project.
 
 The original mercurial repository can be found here with additional documentation:
