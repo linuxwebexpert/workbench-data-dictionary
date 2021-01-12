@@ -371,7 +371,7 @@ def save(html, path):
 def table_as_html(table):
     """Return table as an HTML table."""
     markup = "<table id='{0}'>".format(table.name)
-    markup += "<caption>{0}</caption>".format(table.name)
+    markup += "<h1>{0}</h1>".format(table.name)
     markup += "<tr><td colspan='12'>{0}</td></tr>".format(escape(table.comment))
     markup += html_table_header()
 
